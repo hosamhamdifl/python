@@ -2,12 +2,6 @@ import time
 import os
 
 
-# for i in range(0,20):
-#     print("\n\n\n")
-#     print(" " * i +".")
-#     time.sleep(0.1)
-#     clear()
-
 class Canvas:
     def __init__(self, width, height):
         self._x = width
@@ -82,10 +76,8 @@ class TerminalScribe:
             i = i+1
         i = 0
 
-
+# test 
 canvas = Canvas(10, 10)
 scribe = TerminalScribe(canvas)
-# for i in range(0,10):
-#     for j in range(0,10):
-#         scribe.draw((i,j))
+
 scribe.drawsq(5)
