@@ -1,0 +1,8 @@
+Total bytecount:6399
+Files list:
+--------------
+drwcanvas.py
+filesbytesdir.py
+palindrome.py
+README.md
+tictactoe.py
