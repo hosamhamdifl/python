@@ -11,12 +11,15 @@ import sys
 # The function accepts INTEGER_ARRAY ar as parameter.
 #
 
+
 def simpleArraySum(ar):
-   
-    result=0
+
+    result = 0
     for i in ar:
-        result+=i
+        result += i
     return result
+
+
 if __name__ == '__main__':
     # fptr = open(os.environ['OUTPUT_PATH'], 'w')
 
