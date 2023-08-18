@@ -76,6 +76,28 @@ class Node:
             nodes.extend([None]*2**(depth-1))
         return nodes
 
+    def findMin(self):
+        if self.left:
+            return self.left.findMin()
+        return self
+
+    def delete(self, target):
+        if self.data == target:
+            if self.right and self.left:
+                minimumValue = self.right.findMin()
+                self.data = minimumValue.data
+                self.right = self.right.delete(minimumValue.data)
+                return self
+            else:
+                return self.right or self.left
+
+        if self.right and target > self.data:
+            self.right = self.right.delete(target)
+
+        if self.left and target < self.data:
+            self.left = self.left.delete(target)
+        return self
+
 
 class Tree:
     def __init__(self, root, name=''):
@@ -116,15 +138,20 @@ class Tree:
         for depth in range(0, height+1):
             if depth > 0:
                 # print directional lines
-                print(' '*(offset+1)  + (' '*(spacing+2)).join(['/' + (' '*(spacing-2)) + '\\']*(2**(depth-1))))
+                print(' '*(offset+1) + (' '*(spacing+2)
+                                        ).join(['/' + (' '*(spacing-2)) + '\\']*(2**(depth-1))))
             row = self.root.getNodesAtDepth(depth, [])
-            print((' '*offset)+''.join([self._nodeToChar(n, spacing) for n in row]))
+            print((' '*offset) +
+                  ''.join([self._nodeToChar(n, spacing) for n in row]))
             spacing = offset+1
             offset = int(offset/2) - 1
         print('')
 
     def add(self, data):
         return self.root.add(data)
+
+    def delete(self, target):
+        self.root = self.root.delete(target)
 
 
 node = Node(10)
@@ -196,7 +223,10 @@ tree.add(257)
 tree.add(99)
 tree.add(1)
 
-
+tree.delete(1)
+tree.delete(50)
+tree.delete(99)
+tree.delete(257)
 
 
 tree.print()
