@@ -17,6 +17,24 @@ class Node:
 
         print("Value is not in tree")
 
+    def add(self, data):
+        if self.data == data:
+            return
+
+        if data < self.data:
+            if self.left is None:
+                self.left = Node(data)
+            else:
+                self.left.add(data)
+
+        if data > self.data:
+            if self.right is None:
+                self.right = Node(data)
+            else:
+                self.right.add(data)
+
+        print("Value is not in tree")
+
     def traversePreorder(self):
         print(self.data)
         if self.left:
@@ -88,23 +106,25 @@ class Tree:
         spacing = spacing-len(str(n))+1
         return str(n)+(' '*spacing)
 
-    def printTree(self, label=''):
-        print(str(self.root.data)+' '+label)
+    def print(self, label=''):
+        print(self.name+' '+label)
         height = self.root.height()
         spacing = 3
-        width = int((2**height-1)*(spacing+1)+1)
+        width = int((2**height-1) * (spacing+1) + 1)
+        # Root offset
         offset = int((width-1)/2)
         for depth in range(0, height+1):
             if depth > 0:
-                print(' '*(offset+1)+(' '*(spacing+2)
-                                      ).join(['/'+(' '*(spacing-2))+'\\']*(2**(depth-1))))
+                # print directional lines
+                print(' '*(offset+1)  + (' '*(spacing+2)).join(['/' + (' '*(spacing-2)) + '\\']*(2**(depth-1))))
+            row = self.root.getNodesAtDepth(depth, [])
+            print((' '*offset)+''.join([self._nodeToChar(n, spacing) for n in row]))
+            spacing = offset+1
+            offset = int(offset/2) - 1
+        print('')
 
-                row = self.root.getNodesAtDepth(depth, [])
-                print((' '*offset) +
-                      ''.join([self._nodeToChar(n, spacing) for n in row]))
-                spacing = offset+1
-                offset = int(offset/2)-1
-            print('')
+    def add(self, data):
+        return self.root.add(data)
 
 
 node = Node(10)
@@ -169,4 +189,14 @@ tree.root.left.left.right = Node(20)
 tree.root.right.left = Node(55)
 tree.root.right.right.right = Node(256)
 
-tree.printTree()
+tree.add(2)
+tree.add(75)
+tree.add(76)
+tree.add(257)
+tree.add(99)
+tree.add(1)
+
+
+
+
+tree.print()
