@@ -82,6 +82,30 @@ class Tree:
     def getNodesAtDepth(self, depth):
         return self.root.getNodesAtDepth(depth)
 
+    def _nodeToChar(self, n, spacing):
+        if n is None:
+            return '_'+(' '*spacing)
+        spacing = spacing-len(str(n))+1
+        return str(n)+(' '*spacing)
+
+    def printTree(self, label=''):
+        print(str(self.root.data)+' '+label)
+        height = self.root.height()
+        spacing = 3
+        width = int((2**height-1)*(spacing+1)+1)
+        offset = int((width-1)/2)
+        for depth in range(0, height+1):
+            if depth > 0:
+                print(' '*(offset+1)+(' '*(spacing+2)
+                                      ).join(['/'+(' '*(spacing-2))+'\\']*(2**(depth-1))))
+
+                row = self.root.getNodesAtDepth(depth, [])
+                print((' '*offset) +
+                      ''.join([self._nodeToChar(n, spacing) for n in row]))
+                spacing = offset+1
+                offset = int(offset/2)-1
+            print('')
+
 
 node = Node(10)
 
@@ -132,7 +156,7 @@ print(tree.traversePreorder())
 
 print(tree.height())
 
-tree = Tree(Node(50))
+tree = Tree(Node(50), "My Tree")
 tree.root.left = Node(25)
 tree.root.right = Node(75)
 tree.root.left.left = Node(13)
@@ -145,4 +169,4 @@ tree.root.left.left.right = Node(20)
 tree.root.right.left = Node(55)
 tree.root.right.right.right = Node(256)
 
-print(tree.getNodesAtDepth(3))
+tree.printTree()
