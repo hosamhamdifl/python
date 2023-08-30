@@ -1,0 +1,11 @@
+import numpy as np
+np.set_printoptions(formatter={'float_kind': lambda x: "{:.1f}".format(x).rstrip('0')})
+shape = tuple(map(int, input().split()))
+arrayA = []
+for _ in range(shape[0]):
+    row = list(map(int, input().split()))
+    arrayA.append(row)
+arrayB = np.reshape(arrayA, shape)
+print(np.mean(arrayB, axis=1))
+print(np.var(arrayB, axis=0))
+print(round(np.std(arrayB, axis=None), 11))
