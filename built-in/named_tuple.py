@@ -10,11 +10,10 @@ for _ in range(n):
     student = Student(*fields)
     students.append(student)
 
-# Now you can access the fields of each student like this:
-avg=0
-sum=0
-c=len(students)
+avg = 0
+sum = 0
+c = len(students)
 for student in students:
-    sum+=float(student.MARKS)
-avg=sum/c
+    sum += float(student.MARKS)
+avg = sum/c
 print(avg)
