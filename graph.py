@@ -7,6 +7,7 @@ from collections import deque
 
 
 def dfs(graph, start):
+    print("dfs\n")
     visited, stack = set(), [(start, [start])]
     while stack:
         node, path = stack.pop()
@@ -26,6 +27,7 @@ that explores all the vertices of a graph in breadth-first order.
 
 
 def bfs(graph, start):
+    print("bfs\n")
     visited, queue = set(), deque([(start, [start])])
     while queue:
         node, path = queue.popleft()
@@ -45,6 +47,7 @@ that expands the node with the lowest path cost.
 
 
 def ucs(graph, start, goal):
+    print("ucs\n")
     visited = set()
     queue = PriorityQueue()
     queue.put((0, start, [start]))
@@ -69,6 +72,7 @@ that expands the node that is closest to the goal, as estimated by a heuristic.
 
 
 def greedy_search(graph, start, goal, heuristic):
+    print("greedy_search\n")
     visited = set()
     queue = PriorityQueue()
     queue.put((0, start, [start]))
@@ -92,6 +96,7 @@ where g(n) is the actual cost from the start node and h(n) is the heuristic esti
 
 
 def a_star_search(graph, start, goal, heuristic):
+    print("a_star_search\n")
     visited = set()
     queue = PriorityQueue()
     queue.put((0, 0, start, [start]))
@@ -132,8 +137,8 @@ heuristic = {
 }
 
 
-print(dfs(graph, 'start'))
-print(bfs(graph, 'start'))
-print(ucs(graph, 'start', 'Goal'))
-print(greedy_search(graph, 'start', 'Goal', heuristic))
-print(a_star_search(graph, 'start', 'Goal', heuristic))
+print("\n",dfs(graph, 'start'))
+print("\n",bfs(graph, 'start'),end="\n")
+print("\n",ucs(graph, 'start', 'Goal'),end="\n")
+print("\n",greedy_search(graph, 'start', 'Goal', heuristic),end="\n")
+print("\n",a_star_search(graph, 'start', 'Goal', heuristic),end="\n")
