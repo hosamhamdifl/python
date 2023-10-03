@@ -5,9 +5,8 @@ that explores as far as possible along each branch before backtracking.
 from queue import PriorityQueue
 from collections import deque
 
-
 def dfs(graph, start):
-    print("dfs\n")
+    print("-----dfs-----")
     visited, stack = set(), [(start, [start])]
     while stack:
         node, path = stack.pop()
@@ -16,7 +15,8 @@ def dfs(graph, start):
             print(f'States expanded to: {visited}, Path returned: {path}')
             if node == 'Goal':
                 return path
-            stack.extend((n, path + [n]) for n in graph[node] if n not in visited)
+            stack.extend((n, path + [n])
+                         for n in graph[node] if n not in visited)
     return []
 
 
@@ -27,7 +27,7 @@ that explores all the vertices of a graph in breadth-first order.
 
 
 def bfs(graph, start):
-    print("bfs\n")
+    print("-----bfs-----")
     visited, queue = set(), deque([(start, [start])])
     while queue:
         node, path = queue.popleft()
@@ -36,7 +36,8 @@ def bfs(graph, start):
             print(f'States expanded to: {visited}, Path returned: {path}')
             if node == 'Goal':
                 return path
-            queue.extend((n, path + [n]) for n in graph[node] if n not in visited)
+            queue.extend((n, path + [n])
+                         for n in graph[node] if n not in visited)
     return []
 
 
@@ -47,7 +48,7 @@ that expands the node with the lowest path cost.
 
 
 def ucs(graph, start, goal):
-    print("ucs\n")
+    print("-----ucs-----")
     visited = set()
     queue = PriorityQueue()
     queue.put((0, start, [start]))
@@ -65,6 +66,7 @@ def ucs(graph, start, goal):
                     queue.put((total_cost, i, path + [i]))
     return []
 
+
 """
 Greedy Search: Greedy search is a search algorithm 
 that expands the node that is closest to the goal, as estimated by a heuristic.
@@ -72,7 +74,7 @@ that expands the node that is closest to the goal, as estimated by a heuristic.
 
 
 def greedy_search(graph, start, goal, heuristic):
-    print("greedy_search\n")
+    print("-----greedy_search-----")
     visited = set()
     queue = PriorityQueue()
     queue.put((0, start, [start]))
@@ -89,6 +91,8 @@ def greedy_search(graph, start, goal, heuristic):
                     priority = heuristic[i]
                     queue.put((priority, i, path + [i]))
     return []
+
+
 """
 A Search*: A* Search is a search algorithm that expands the node with the lowest value of g(n) + h(n), 
 where g(n) is the actual cost from the start node and h(n) is the heuristic estimate to the goal.
@@ -96,7 +100,7 @@ where g(n) is the actual cost from the start node and h(n) is the heuristic esti
 
 
 def a_star_search(graph, start, goal, heuristic):
-    print("a_star_search\n")
+    print("-----a_star_search-----")
     visited = set()
     queue = PriorityQueue()
     queue.put((0, 0, start, [start]))
@@ -114,7 +118,9 @@ def a_star_search(graph, start, goal, heuristic):
                     h = heuristic[i]
                     f_new = g_new + h
                     queue.put((f_new, g_new, i, path + [i]))
+
     return []
+
 
 # Graph represented as a dictionary
 graph = {
@@ -137,8 +143,8 @@ heuristic = {
 }
 
 
-print("\n",dfs(graph, 'start'))
-print("\n",bfs(graph, 'start'),end="\n")
-print("\n",ucs(graph, 'start', 'Goal'),end="\n")
-print("\n",greedy_search(graph, 'start', 'Goal', heuristic),end="\n")
-print("\n",a_star_search(graph, 'start', 'Goal', heuristic),end="\n")
+print(dfs(graph, 'start'))
+print(bfs(graph, 'start'))
+print(ucs(graph, 'start', 'Goal'))
+print(greedy_search(graph, 'start', 'Goal', heuristic))
+print(a_star_search(graph, 'start', 'Goal', heuristic))
